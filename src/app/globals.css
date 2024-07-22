@@ -2,32 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* .mantine-DatePickerInput-levelsGroup			 {
+    background-color: red;
+    position: absolute;
+    max-width: min-content; 
+    border: 1px solid red;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.mantine-DatePickerInput-day	{
+    margin: 2px;
+}
+
+button[data-selected="true"] {
+    background-color: white;
+    color: black;
+} */
+
+.mantine-DatePickerInput-input {
+  border: none;
+}
+
+.mantine-Button-root		 {
+    height: 3rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .mantine-InputPlaceholder-placeholder {
+    font-weight: 400;
+    font-size: 1rem;
+  }
+
+  .mantine-Modal-inner {
+    padding: 0;
+  }
+  .mantine-Modal-content {
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  .mantine-DatePickerInput-month {
+    min-width: 90svw;
+    margin: 0 auto;
+  }
+
+  .mantine-DatePickerInput-calendarHeader {
+    margin: 0 auto;
+  }
+
+  .mantine-DatePickerInput-monthCell {
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  .mantine-DatePickerInput-day {
+
+  }
+
+  .mantine-Input-input {
+
+  }
+
+  .tabler-icon-calendar-event {
+    height: 16px;
+    width: 16px;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+
+.mantine-Modal-title {
+  font-weight: bold;
+  text-transform: capitalize;
+  text-align: center;
+  width: 100%;
 }
