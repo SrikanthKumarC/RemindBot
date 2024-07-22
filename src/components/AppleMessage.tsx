@@ -32,14 +32,14 @@ const AppleMessage = ({ children }: { children: string }) => {
             transition={{ ease: "linear" }}
             className=" relative mx-auto origin-left font-inter"
         >
-            <div className="bg-blue-200 origin-left text-white p-4 py-2 rounded-xl ">
+            <div className="bg-primary origin-left text-white p-4 py-2 rounded-xl ">
                 <Image
                     priority
                     alt="imessage arrow"
                     className="absolute -right-[0.7rem] bottom-0"
                     src={Imessage}
                 />
-                <m.div className="block text-primary font-bold">
+                <m.div className="block text-white font-bold">
                     {loading ? (
                         <ul className="flex gap-1 items-center py-1">
                             {" "}
