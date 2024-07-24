@@ -28,29 +28,30 @@ const Header = ({ dashboard = false }) => {
         // router.push("/login");
       }
     });
-  }, []);
-
+  }, [auth]);
 
   return (
     <div className="relative">
       <nav className=" w-full relative flex justify-between pt-6 lg:px-12 px-4 lg:pt-4 items-center border-gray-200">
+        
+
         <Link href={"/"}>
           <h1 className="font-sora font-bold text-3xl text-primary">
             RemindBot
           </h1>
         </Link>
         <div className="flex items-center">
-          {user && <Link className="pr-4" href={"/reminders"}>Your Reminders</Link>}
+          {user && (
+            <Link className="pr-4" href={"/reminders"}>
+              Your Reminders
+            </Link>
+          )}
           {user && (
             <Menu shadow="md" width={200}>
               <Menu.Target>
-                <Image
-                  src={user?.photoURL || ""}
-                  alt="Profile picture"
-                  height="40"
-                  width="40"
-                  className="shadow cursor-pointer border-white border-2 rounded-full"
-                />
+                <div>
+                  <Profile user={user} />
+                </div>
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Item
@@ -75,10 +76,24 @@ const Header = ({ dashboard = false }) => {
             </Link>
           )}
         </div>
-        
       </nav>
     </div>
   );
+};
+
+const Profile = ({ user }: { user: User }) => {
+  if (user.photoURL) {
+    return (
+      <Image
+        src={user.photoURL}
+        alt="menu"
+        height="40"
+        width="40"
+        className="shadow cursor-pointer border-white border-2 rounded-full"
+      />
+    );
+  }
+  return <p className="cursor-pointer p-2 bg-gray-200 rounded-md">Menu</p>;
 };
 
 export default Header;

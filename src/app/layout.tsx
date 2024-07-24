@@ -6,6 +6,7 @@ import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import "./globals.css";
 import UserProvider from "@/UserContext";
 const inter = Inter({ subsets: ["latin"] });
+import Providers from "./providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,7 +25,9 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider>
-          <UserProvider>{children}</UserProvider>
+          <UserProvider>
+            <Providers>{children}</Providers>
+          </UserProvider>
         </MantineProvider>
       </body>
     </html>

@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm';
 import { reminders, InsertReminder, SelectReminder} from "./schema";
 
 export async function createReminder(data: InsertReminder) {
+  console.log("Creating reminder with data: ", data);
   await db.insert(reminders).values(data);
 }
 
@@ -12,4 +13,5 @@ export async function getReminders(userId: SelectReminder['createdBy']) {
 
 export async function deleteReminder(id: string) {
   await db.delete(reminders).where(eq(reminders.id, id));
+  console.log("Deleted reminder with id: ", id);
 }
