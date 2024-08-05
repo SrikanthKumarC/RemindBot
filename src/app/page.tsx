@@ -14,6 +14,8 @@ import { useDisclosure } from "@mantine/hooks";
 import { createReminder } from "@/db/queries";
 import { v4 as uuidv4 } from "uuid";
 
+import { HOURS, MINUTES, combineDateAndTime } from "@/utils";
+
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import firebase from "@/lib/firebase/firebase";
 
@@ -27,7 +29,11 @@ import {
 
 export default function Home() {
   const [value, setValue] = useState<Date | null>(null);
-  const [time, setTime] = useState<string>();
+  const [time, setTime] = useState<{
+    hours: string;
+    minutes: string;
+    amorpm: string;
+  }>({ hours: "1", minutes: "0", amorpm: "am" });
   const [opened, { open, close }] = useDisclosure(false);
   const auth = getAuth(firebase);
 
@@ -48,26 +54,33 @@ export default function Home() {
 
   console.log(user?.uid, " user id");
   const combinedDate = new Date(
-    `${value?.toISOString().split("T")[0]}T${time}`
+    `${value?.toISOString().split("T")[0]}T${time.hours}:${
+      time.minutes
+    }:00${time.amorpm === "pm" ? "pm" : "am"}`
   );
 
+  console.log(combinedDate, "combined date", time, "time", value, "value");
   const mutation = useMutation({
     mutationFn: () =>
       createReminder({
         id: uuidv4(),
+        email: user!.email || "",
         createdBy: user!.uid,
         title: message!,
-        time: combinedDate.toISOString()!,
+        time: combineDateAndTime(time, value!).toISOString(),
       }),
     onSuccess: () => {
       setMessage("");
       setValue(null);
-      setTime("");
+      setTime({ hours: "", minutes: "", amorpm: "" });
       queryClient.invalidateQueries({ queryKey: ["reminders"] });
     },
   });
 
+  console.log(time, "time");
+
   const loading = mutation.isPending;
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -132,21 +145,53 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-col">
-          <label
-            htmlFor="time"
-            className="capitalize text-center text-gray-500"
-          >
-            at what time?
-          </label>
-          <input
-            onChange={(e) => setTime(e.target.value)}
-            className="border p-2 py-3 rounded-full"
-            required
-            value={time}
-            name="time"
-            type="time"
-            placeholder="text"
-          />
+    
+          <div className="flex justify-center p-2 gap-2">
+            <label htmlFor="">Hours</label>
+            <select
+              name="hours"
+              id="hours"
+              onChange={(e) => {
+                setTime({ ...time, hours: e.target.value });
+              }}
+              value={time.hours}
+              className="max-w-fit border rounded-lg"
+            >
+              {HOURS.map((hour) => (
+                <option key={hour} value={hour}>
+                  {hour}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="">Minutes</label>
+
+            <select
+              name="minutes"
+              id="minutes"
+              onChange={(e) => {
+                setTime({ ...time, minutes: e.target.value });
+              }}
+              value={time.minutes}
+              className="max-w-fit border rounded-lg"
+            >
+              {MINUTES.map((minute) => (
+                <option key={minute} value={minute}>
+                  {minute}
+                </option>
+              ))}
+            </select>
+            <select
+              name="amorpm"
+              id="amorpm"
+              onChange={(e) => {
+                setTime({ ...time, amorpm: e.target.value });
+              }}
+              className="max-w-fit border rounded-lg"
+            >
+              <option value="am">am</option>
+              <option value="pm">pm</option>
+            </select>
+          </div>
         </div>
         <div
           className=" mx-auto mt-4"

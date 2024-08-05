@@ -25,6 +25,7 @@ const Header = ({ dashboard = false }) => {
       } else {
         // User is signed out
         // ...
+        setUser(undefined);
         // router.push("/login");
       }
     });

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "56729dd7-5a0d-4bad-aa0a-858bd59397f4",
+  "id": "4f24b7a6-2f27-4e97-9de9-c57dc4569661",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "reminders": {
@@ -10,8 +10,15 @@
         "id": {
           "name": "id",
           "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "created_by": {
@@ -34,6 +41,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "reminded": {
+          "name": "reminded",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         },
         "text_modifiers": {
           "name": "text_modifiers",

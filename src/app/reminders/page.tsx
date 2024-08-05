@@ -15,6 +15,9 @@ import {
   useMutation,
 } from "@tanstack/react-query";
 
+
+
+
 const Reminders = () => {
   const [reminders, setReminders] = useState<any>([]);
 
@@ -22,17 +25,17 @@ const Reminders = () => {
 
   const userCtx = useContext(UserContext);
 
-  useEffect(() => {
-    if (!userCtx.user || !userCtx.user === null) {
-      return;
-    }
-    const fetchReminders = async (userId: string) => {
-      //   console.log(userId);
-      const reminders = await getReminders(userId);
-      setReminders(reminders);
-    };
-    fetchReminders(userCtx.user.uid);
-  }, [userCtx.user]);
+  // useEffect(() => {
+  //   if (!userCtx.user || !userCtx.user === null) {
+  //     return;
+  //   }
+  //   const fetchReminders = async (userId: string) => {
+  //       console.log(userId, "userid"); 
+  //     const reminders = await getReminders(userId);
+  //     setReminders(reminders);
+  //   };
+  //   fetchReminders(userCtx.user.uid);
+  // }, [userCtx.user]);
 
   //   console.log(reminders);
 

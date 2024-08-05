@@ -3,6 +3,9 @@ import { eq } from 'drizzle-orm';
 import { reminders, InsertReminder, SelectReminder} from "./schema";
 
 export async function createReminder(data: InsertReminder) {
+  if (data.email === undefined || data.email === "" || data.email === null) {
+    throw new Error("Email is required to create a reminder");
+  }
   console.log("Creating reminder with data: ", data);
   await db.insert(reminders).values(data);
 }
